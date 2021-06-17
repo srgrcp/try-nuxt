@@ -20,17 +20,6 @@ export default Vue.extend({
       return  this.userState.user
     }
   },
-  methods: {
-    /* login() {
-      const demoUser: User = {
-        username: 'srgrcp',
-        email: 'srgrcp@gmail.com',
-        name: 'Sergio',
-        lastname: 'Carrillo'
-      }
-      this.$store.commit('auth/setUser', demoUser)
-    } */
-  },
   middleware: ['authorization'],
 })
 </script>
