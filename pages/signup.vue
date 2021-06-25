@@ -3,10 +3,10 @@
     <form class="container py-4" @submit="signup($event)">
       <h1 class="text-xl mb-4">Sign Up</h1>
       <div class="space-y-4">
-        <!-- <div>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required v-model.trim="username">
-                </div> -->
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" required v-model.trim="username">
+        </div>
         <div>
           <label for="email">Email</label>
           <input type="email" id="email" required v-model.trim="email" />
@@ -28,8 +28,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import firebase from "firebase/app";
-import "firebase/auth";
 
 export default Vue.extend({
   data() {
@@ -45,13 +43,8 @@ export default Vue.extend({
       e.preventDefault();
       this.isLoading = true;
       try {
-        const userCredential = await firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password);
-        if (! userCredential.user) return
-        const { uid, email } = userCredential.user
-        console.log(uid, email);
-        this.$store.commit("auth/setUser", { uid, email });
+        // TODO: Implementar Cognito
+        this.$store.commit("auth/setUser", {  });
         this.$router.push('/')
       } catch (error) {
         console.log(error);
