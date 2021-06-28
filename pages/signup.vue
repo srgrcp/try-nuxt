@@ -5,21 +5,21 @@
       <div class="space-y-4">
         <div>
             <label for="username">Username</label>
-            <input type="text" id="username" required v-model.trim="username">
+            <input type="text" id="username" required v-model.trim="form.username">
         </div>
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" required v-model.trim="email" />
+          <input type="email" id="email" required v-model.trim="form.email" />
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" required v-model="password" />
+          <input type="password" id="password" required v-model="form.password" />
         </div>
         <div>
-          <button class="signup" :disabled="isLoading">Sign Up</button>
+          <button class="signup" :disabled="form.isLoading">Sign Up</button>
         </div>
         <div>
-          <p v-if="isLoading">Loading...</p>
+          <p v-if="form.isLoading">Loading...</p>
         </div>
       </div>
     </form>
@@ -27,30 +27,12 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from '@nuxtjs/composition-api'
+import { authComposite } from '~/composites/auth'
 
-export default Vue.extend({
-  data() {
-    return {
-      username: "",
-      email: "",
-      password: "",
-      isLoading: false,
-    };
-  },
-  methods: {
-    async signup(e: any) {
-      e.preventDefault();
-      this.isLoading = true;
-      try {
-        // TODO: Implementar Cognito
-        this.$store.commit("auth/setUser", {  });
-        this.$router.push('/')
-      } catch (error) {
-        console.log(error);
-      }
-      this.isLoading = false;
-    },
+export default defineComponent({
+  setup() {
+    return authComposite()
   },
   middleware: ["unloggedin"],
 });
